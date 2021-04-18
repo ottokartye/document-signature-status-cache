@@ -1,0 +1,17 @@
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th style="text-align: left">Name</th>
+      <th>Signature status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let document of _data">
+      <td>{{ document.id }}</td>
+      <td style="text-align: left">{{ document.name }}</td>
+      <td>{{ (document.signatureStatus | async)?.status}}</td>
+    </tr>
+  </tbody>
+</table>

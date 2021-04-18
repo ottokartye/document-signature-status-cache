@@ -37,15 +37,18 @@ export class ESignService {
    */
   public getStatus(id: number): Observable<DocumentStatus> {
     if (!this.cacheList.find(item => item.documentId === id)) {
+      // Set an interval depending on the document id.
       const interval = parseInt(id + '0000');
+      // Trigger API call and cache it.
       const cachedDocumentStatus = timer(0, interval).pipe(
         switchMap(_ => this.getDocumentStatusFromAPI(id)),
         publishReplay(1),
         refCount()
       );
+      // Push new document signature status to the cache list.
       this.cacheList.push({ documentId: id, status: cachedDocumentStatus });
     }
-
+    // Return cached signature status.
     return this.cacheList.find(item => item.documentId === id).status;
   }
 
@@ -54,11 +57,17 @@ export class ESignService {
    * provided document id.
    */
   public getDocumentStatusFromAPI(id: number): Observable<DocumentStatus> {
-    const randomStatus = this.statuses[Math.floor(Math.random() * 3)];
     return of(id).pipe(
-      tap(_ => this.documentStatusList.find(s => s.id === id).status = randomStatus),
+      // Randomize the status.
+      tap(_ => {
+        const randomStatus = this.statuses[Math.floor(Math.random() * 3)];
+        this.documentStatusList.find(s => s.id === id).status = randomStatus
+      }),
+      // Log in console.
       tap(id => console.log('refreshing cache for document', id)),
+      // Find the signature status oject of the specified document.
       map(id => this.documentStatusList.find(document => document.id === id)),
+      // Log in console.
       tap(status => console.log('new status for document', id, 'is', status.status))
     );
   }

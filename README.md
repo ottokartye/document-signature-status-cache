@@ -4,6 +4,7 @@ A small project demontrating a simple cache system for managing the status updat
 - the document can have or not a remote status
 - each document signature status request is cached
 - eached cached signature status can have a different refresh period
+- list of documents is not refreshed, only the signature statuses, this way there are no template changes triggered
 
 # Run the project
 

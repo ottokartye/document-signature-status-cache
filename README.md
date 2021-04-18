@@ -9,6 +9,7 @@ A small project demontrating a simple cache system for managing the status updat
 # Important notes
 1. The document statuses are randomly changed for each request so you can better observe the changes.
 2. Caching is managed by an injectable service, meaning that no matter how many components will register, the document signature statuses will be multicasted to each component. Therefore, once the statuses where requested, the components won't trigger any real "fetching" of the statuses from the so called API.
+3. Each documents signature status cache and refresh is managed separately. This means that once we would submit a new signature, only the concerned documents signature cache would be refreshed.
 
 # Run the project
 

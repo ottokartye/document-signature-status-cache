@@ -6,6 +6,10 @@ A small project demontrating a simple cache system for managing the status updat
 - eached cached signature status can have a different refresh period
 - list of documents is not refreshed, only the signature statuses, this way there are no template changes triggered
 
+# Important notes
+1. The document statuses are randomly changed for each request so you can better observe the changes.
+2. Caching is managed by an injectable service, meaning that no matter how many components will register, the document signature statuses will be multicasted to each component. Therefore, once the statuses where requested, the components won't trigger any real "fetching" of the statuses from the so called API.
+
 # Run the project
 
 To run this sample project simply git clone the content and:
